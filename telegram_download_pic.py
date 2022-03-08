@@ -6,7 +6,7 @@ import ConfigParser
 config = ConfigParser.ConfigParser()
 config.read('configure.ini')
 
-# Use your own values here
+# Use your own values here,need to configure your own
 api_id = config.get('baseconf', 'api_id')
 api_hash = config.get('baseconf', 'api_hash')
 client = TelegramClient('derren', api_id,api_hash,proxy=(socks.SOCKS5, '127.0.0.1', 1080)
