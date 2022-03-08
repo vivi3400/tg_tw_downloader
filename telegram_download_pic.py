@@ -1,9 +1,9 @@
 from telethon import TelegramClient, sync
 from telethon.tl.types import InputMessagesFilterVideo, InputMessagesFilterPhotos
 import socks
-import ConfigParser
+import configparser
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 config.read('configure.ini')
 
 # Use your own values here,need to configure your own
