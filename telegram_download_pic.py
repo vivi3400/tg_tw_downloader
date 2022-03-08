@@ -32,8 +32,7 @@ try:
             t = open("telegram_progress_pic.txt", "a+")
             t.write(str(message.id)+"\n")
             t.close()
-        # if counter>2:
-        #     break
+
         counter += 1
 except KeyboardInterrupt:
     pass
