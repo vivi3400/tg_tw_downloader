@@ -3,13 +3,14 @@ from telethon.tl.types import InputMessagesFilterVideo, InputMessagesFilterPhoto
 import socks
 import configparser
 
+# 登陆鉴权信息
 config = configparser.ConfigParser()
 config.read('configure.ini')
 
 # Use your own values here,need to configure your own
-api_id = config.get('baseconf', 'api_id')
+api_id = int(config.get('baseconf', 'api_id'))
 api_hash = config.get('baseconf', 'api_hash')
-client = TelegramClient('derren', api_id,api_hash,proxy=(socks.SOCKS5, '127.0.0.1', 1080)
+client = TelegramClient('derren', api_id, api_hash, proxy=(socks.SOCKS5, '127.0.0.1', 1080)
 ).start()
 
 progress_list = []
@@ -19,6 +20,7 @@ with open("telegram_progress_pic.txt","r") as t:
 print(progress_list)
 t.close()
 
+# 下载进度callback
 def progress_callback(current, total):
     print(f"\rDownloading {round(current/float(1024)/float(1024),1)} / {round(total/float(1024)/float(1024),1)} MB [{round(current/total,2)*100}%]", end=" ")
 
@@ -27,7 +29,7 @@ try:
     for message in client.iter_messages("vivi zhou", filter=InputMessagesFilterPhotos):
         if str(message.id) not in progress_list:
             print(f'Progress {counter}/*', message)
-            client.download_media(message, progress_callback=progress_callback, file="./telegram_pic/")
+            client.download_media(message, progress_callback=progress_callback, file="./telegram_pic/July/")
 
             t = open("telegram_progress_pic.txt", "a+")
             t.write(str(message.id)+"\n")
@@ -36,8 +38,10 @@ try:
         counter += 1
 except KeyboardInterrupt:
     pass
-except:
+except Exception as e:
+    print(f"running error with exception {e}")
     pass
+
 
 
 

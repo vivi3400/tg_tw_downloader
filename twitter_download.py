@@ -7,23 +7,27 @@ import random
 
 def down_img(resourcd_id,folder):
 
-    # resourcd_id = (url.split("/")[-1].split("?")[0])
+    # p = "https://api.twitter.com/1.1/statuses/show.json?id="+str(resourcd_id)
 
-    p = "https://api.twitter.com/1.1/statuses/show.json?id="+str(resourcd_id)
+    p = f"https://api.twitter.com/1.1/statuses/show/{resourcd_id}.json?tweet_mode=extended"
 
+    print(p)
     headers = {
-        "authorization":"Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
+        "Authorization":"Bearer AAAAAAAAAAAAAAAAAAAAABXsygAAAAAAmJuTUyoBiQiFqw9KIVOZPoELi%2FM%3DPau8s2HiUxM9v3eiOtJQu3bdKcCbaHyw5le0yH1LLhfJh6580X"
     }
 
     p_res = requests.get(p,headers=headers)
 
     data = json.loads(p_res._content)
 
+    print(data)
+
     try:
         media_data = (data["extended_entities"])
     except:
 
         return
+    print('media data ',media_data)
 
     for media in media_data['media']:
 
@@ -63,7 +67,7 @@ def down_img(resourcd_id,folder):
 if __name__ == '__main__':
 
     txt_name = "noteFromPhone"
-    folder_name = "Jan26"
+    folder_name = "Apr6"
     folder_path = os.path.join(os.getcwd(),folder_name)
     try:
         os.makedirs(folder_path)
@@ -80,5 +84,6 @@ if __name__ == '__main__':
         print("current progres is ",round(float(((lines.index(line))/float(len(lines)))*100),3),"%")
         # if lines.index(line)<52:
         #     continue
+        print('rescource id is  ', resourcd_id)
         down_img(resourcd_id,folder_path+"/")
         time.sleep(random.randint(1,2))
